@@ -8,7 +8,7 @@ Teclas de movimiento:
   - DOWN o "S"  --->> Abajo
   - Left o "K"  --->> Izquierda
   - DOWN o "L"  --->> Derecha
-  - "e          --->> Borrar manualmente corazones, sirve de test
+  - "e"         --->> Borrar manualmente corazones, sirve de test
 
 Esta realizado para funcionar en Linux y MACOS con la libreria ncourse.
 
