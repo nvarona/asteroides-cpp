@@ -59,10 +59,10 @@ void Avion::pintar() {
     refresh();  // Refresca la pantalla
 }
 
-void Avion::borrar() {
-	move(posY, posX);			printw("      ");
-	move(posY+1, posX);		printw("      ");
-	move(posY+2, posX);		printw("      ");
+void Avion::borrar() {			//  12345678
+	move(posY, posX);		printw("       ");
+	move(posY+1, posX);		printw("       ");
+	move(posY+2, posX);		printw("       ");
 	refresh();	// Refresca la pantalla
 }
 
@@ -70,10 +70,10 @@ void Avion::mover() {
 	int tecla = getch();
 	borrar();
 	if ((tecla == KEY_UP || tecla == 'w') && posY > 4) posY--;			// Arriba	
-	if ((tecla == KEY_DOWN || tecla == 's') && posY+3 < 34) posY++;	// Abajo
+	if ((tecla == KEY_DOWN || tecla == 's') && posY+3 < 34) posY++;		// Abajo
 	if ((tecla == KEY_LEFT || tecla == 'k') && posX > 3) posX--;		// Izquierda
 	if ((tecla == KEY_RIGHT || tecla == 'l') && posX+6 < 79) posX++; 	// Derecha
-	if (tecla == 'e' && corazones > 1) corazones--;							// Prueba para saber que se estan borrando corazones
+	if (tecla == 'e' && corazones > 1) corazones--;						// Prueba para saber que se estan borrando corazones
 	pintar();
 	pintar_corazones();
 	pintar_vidas();
@@ -95,20 +95,21 @@ void Avion::pintar_vidas(){
 void Avion::morir(){
 	if (corazones == 0){
 		borrar();
-		move(posY, posX);		printw("   **   ");
+		move(posY, posX);	printw("   **   ");
 		move(posY+1, posX);	printw("  ****  ");
 		move(posY+2, posX);	printw("   **   ");
 		sleep30ms();
-		move(posY, posX);		printw(" * ** * ");
+		move(posY, posX);	printw(" * ** * ");
 		move(posY+1, posX);	printw("   **   ");
 		move(posY+2, posX);	printw(" * ** * ");
-		sleep30ms();
+		sleep30ms();			//  12345678
 		borrar();
 		vidas--;
 		corazones = 3;
 		pintar_corazones();
 		pintar_vidas();
 		pintar();
+		// Sonido de una exploxion !!!
 	}
 }
 
@@ -172,29 +173,29 @@ void Asteroide::mover(){
 
 // Funcion que nos pinta el cuadro de juego y los limites en la pantalla
 void pintarLimite() {
-  // Líneas horizontales
-  for (int i = 3; i <= 33; i++) {
+  	// Líneas horizontales
+  	for (int i = 3; i <= 33; i++) {
   		attron(COLOR_PAIR(1));
     	mvprintw(i, 2, "|");
     	mvprintw(i, 78, "|");
     	attroff(COLOR_PAIR(1));
-  }
+  	}
 
-  // Líneas verticales
-  for (int i = 2; i <= 78; i++) {
+  	// Líneas verticales
+  	for (int i = 2; i <= 78; i++) {
   		attron(COLOR_PAIR(1));
     	mvprintw(3, i, "-");
     	mvprintw(34, i, "-");
     	attroff(COLOR_PAIR(1));
-  }
+  	}
 
-  // Esquinas
-  attron(COLOR_PAIR(2));
-  mvprintw(3, 2, "+");
-  mvprintw(34, 2, "+");
-  mvprintw(3, 78, "+");
-  mvprintw(34, 78, "+");
-  attroff(COLOR_PAIR(2));
+  	// Esquinas
+  	attron(COLOR_PAIR(2));
+  	mvprintw(3, 2, "+");
+  	mvprintw(34, 2, "+");
+  	mvprintw(3, 78, "+");
+  	mvprintw(34, 78, "+");
+  	attroff(COLOR_PAIR(2));
 }
 
 // Funcion principal del proyecto de AVIONES en ASCII
@@ -208,14 +209,14 @@ int main(){
   	cbreak(); 					// Deshabilita el modo de línea
   	noecho(); 					// Deshabilita el eco de caracteres
   	nonl();
-   timeout(0);					// Habilitar el reconocimiento de tecla de escape
-   curs_set(0);				// Ocultar el cursor
-   erase();
-   getmaxyx(stdscr, max_y, max_x);
-   pos_x = max_x / 2;
+    timeout(0);					// Habilitar el reconocimiento de tecla de escape
+    curs_set(0);				// Ocultar el cursor
+    erase();
+    getmaxyx(stdscr, max_y, max_x);
+    pos_x = max_x / 2;
   	pos_y = max_y / 2;
 
-   // Inicializar colores para los limites
+    // Inicializar colores para los limites
   	start_color();
   	init_pair(1, COLOR_WHITE, COLOR_BLACK);
   	init_pair(2, COLOR_RED, COLOR_BLACK);
@@ -230,15 +231,15 @@ int main(){
   		Ast.push_back(new Asteroide(rand()%75 + 3, rand()%5 + 4));
   	}
 
-   // Creamos el objecto contructor Avion, le ponemos un nombre "Avo"
-   // Y con los parametros para los metodos
-   // Posición inicial del Avion (X,Y), Corazones y Vidas
-   Avion Avo(15, 10, 3, 5);
-   Avo.pintar();
-   Avo.pintar_corazones();
-   Avo.pintar_vidas();
+    // Creamos el objecto contructor Avion, le ponemos un nombre "Avo"
+    // Y con los parametros para los metodos
+    // Posición inicial del Avion (X,Y), Corazones y Vidas
+    Avion Avo(15, 10, 3, 5);
+    Avo.pintar();
+    Avo.pintar_corazones();
+    Avo.pintar_vidas();
 
-   // Pintar los límites del juego
+    // Pintar los límites del juego
   	pintarLimite();
 
 	bool game_over = false;
@@ -249,6 +250,8 @@ int main(){
 		// int tecla = getch();
 		//if (tecla == 'b' || tecla == KEY_SPACE ){
 			Bal.push_back(new Balas(Avo.X() + 2, Avo.Y() - 1));
+			// Sonido de disparo de la bala
+			//disparo();
 		//}
 		//if (tecla == 'q' || tecla == ESC ){
 		//		game_over = true;
@@ -284,18 +287,19 @@ int main(){
 				}
 			} 
 		}
-		if (Avo.V() ==0) game_over = true;
+		if (Avo.V() <= 0){
+			game_over = true;
+			// Hacer musica de que se acabo el juego ...
+			move(18, 25);
+			printw("Game OVER ;-((");
+		}
 		Avo.morir();
 		Avo.mover();
-
     	// Agregar un retraso de 30 ms
     	sleep30ms();
 	}
-   curs_set(1);		// Mostrar el cursor nuevamente
+    curs_set(1);		// Mostrar el cursor nuevamente
   	endwin();			// Terminar la configuracion de la terminal por ncurses
-  	clear();
-	printw("*** Ohh my God !! ***");
-	printw(""):
-	printw("      GAME OVER");
-	return 0;
+  	getch();
+  	return 0;
 }
